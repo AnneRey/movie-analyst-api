@@ -1,8 +1,9 @@
 pipeline {
+  def app
   agent {
     label 'devops'
-    def app
   }
+
   stages {
     
     stage('Preparation') {
