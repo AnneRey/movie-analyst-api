@@ -3,42 +3,24 @@ pipeline {
     label 'devops'
   }
   stages {
-    stage('Clone back repo') {
-      steps {
-        git 'https://github.com/AnneRey/movie-analyst-api.git'
-        sh 'pwd'
-        sh 'git checkout developer'
-        sh 'ls'
-      }
+    def app
+    stage('Preparation') {
+        git "https://github.com/AnneRey/movie-analyst-api.git"
+        sh "cd movie-analyst-api"
+        sh "git checkout developer"
     }
-
-    stage('Package') {
-      steps {
-        sh 'docker build -t localhost:5000/backimage .'
-        sh 'pwd'
-        sh 'docker images'
-        sh 'ls'
-      }
+    stage('Build') {
+        app = docker.build("localhost:5000/backimage")
     }
-
-    stage('Test image'){
-        steps{
-            sh "docker exec -it localhost:5000/backimage bash"
-            sh "node test/test.js"
+    stage('Test') {
+        app.inside {
+            sh 'node test.js'
         }
     }
-
-    stage('Push to registry') {
-      steps {
-        sh 'docker push localhost:5000/backimage'
-        sh 'docker images'
-        sh 'docker ps'
-        sh 'ls'
-        sh 'pwd'
-        sh "curl http://localhost:5000/v2/_catalog"
-      }
+    stage('Push image') {
+        sh "docker push localhost:5000/backimage"
+        sh "curl localhost:5000/v2/_catalog"
     }
-
     stage('Deploy with ansible: back') {
       steps {
         withCredentials(bindings: [[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws_credentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
