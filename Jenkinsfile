@@ -1,9 +1,10 @@
 pipeline {
   agent {
     label 'devops'
+    def app
   }
   stages {
-    def app
+    
     stage('Preparation') {
         git "https://github.com/AnneRey/movie-analyst-api.git"
         sh "cd movie-analyst-api"
