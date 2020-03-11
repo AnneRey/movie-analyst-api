@@ -23,6 +23,7 @@ pipeline {
 
     stage('Test image'){
         steps{
+            sh "docker rm -f testBack"
             sh "docker run --name testBack -p 3000:1400 localhost:5000/backimage"
             sh "docker exec -it localhost:5000/backimage bash"
             sh "node test/test.js"
@@ -31,6 +32,7 @@ pipeline {
 
     stage('Push to registry') {
       steps {
+        sh "docker rm testBack"
         sh 'docker push localhost:5000/backimage'
         sh 'docker images'
         sh 'docker ps'
