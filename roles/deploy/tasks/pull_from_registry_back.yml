@@ -1,23 +1,23 @@
-- name: Getting image from local registry for front
-  docker_image:
-    name: localhost:5000/frontimage
-    repository: localhost:5000
-    source: pull
+- name: Log into registry
+  shell: "docker login 34.219.139.12:5000 -u user -p 123"
 
-- name: Run container for front image
+- name: Pull image from registry
+  shell: "docker pull  34.219.139.12:5000/backimage"
+
+- name: Run container for back image
   docker_container:
-    name: movie-analyst-api
-    image: localhost:5000/backimage
+    name: movie-analyst-ui
+    image: 34.219.139.12:5000/backimage
     state: started
     volumes:
-    - "/etc/docker/movie-analyst-api:/var/lib/movie-analyst-api"
-  published-ports:
-    - "3000:3000"
-  env:
-    DB_HOST: "host"
-    DB_USER: "user"
-    DB_PASS: "pass"
-    
+      - "/etc/docker/movie-analyst-api:/var/lib/movie-analyst-api"
+    ports:
+      - "3000:3000"
+    env:
+      BACKEND_URL: "10.0.4.244:3000"
+      DB_HOST: "host"
+      DB_USER: "user"
+      DB_PASS: "pass"
 
 - name: Run seed
   shell: | 
