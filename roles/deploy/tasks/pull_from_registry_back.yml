@@ -13,6 +13,11 @@
     - "/etc/docker/movie-analyst-api:/var/lib/movie-analyst-api"
   published-ports:
     - "3000:3000"
+  env:
+    DB_HOST: "host"
+    DB_USER: "user"
+    DB_PASS: "pass"
+    
 
 - name: Run seed
   shell: | 

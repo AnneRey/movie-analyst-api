@@ -52,11 +52,5 @@ pipeline {
         }
       }
     }
-
-    stage('Run seed'){
-        steps{
-            sh "docker exec -it "
-        }
-    }
   }
 }
