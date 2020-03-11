@@ -1,0 +1,35 @@
+install:
+  localhost:
+    packages:
+      - default-jdk
+      - python-pip
+      - docker.io
+      - unzip
+      - python3-botocore
+      - python-netaddr
+      - python3-pip
+    pip:
+      - docker
+      - boto3
+      - jinja2
+  auto_scaling_instances:
+    packages:
+      - docker.io
+      - python3
+      - python-pip
+      - python3-pip
+    pip: 
+      - docker
+
+docker_image:
+  image:
+    - jenkinsci/blueocean
+
+terraform_version: "0.12.20"
+terraform_url: "https://releases.hashicorp.com/terraform/{{terraform_version}}/terraform_{{terraform_version}}_linux_amd64.zip"
+terraform_directory: "/opt/terraform"
+terraform_zip: "/tmp/terraform.zip"
+
+
+
+

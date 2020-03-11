@@ -1,0 +1,11 @@
+---
+
+- hosts: tag_Name__arey_slave
+  user: ubuntu
+  become: true
+  vars_files:
+    - variables.yml
+  tasks:
+    - name: deploy
+      include_role:
+        name: deploy

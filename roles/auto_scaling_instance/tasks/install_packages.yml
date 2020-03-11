@@ -1,0 +1,11 @@
+- name: Install packages for slave
+  apt:
+    name: "{{item}}"
+    update_cache: yes
+  loop: "{{install.auto_scaling_instances.packages}}"
+
+- name: Install pip packages for slave
+  pip:
+    name: "{{item}}"
+  loop: "{{install.auto_scaling_instances.pip}}"
+

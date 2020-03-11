@@ -1,0 +1,9 @@
+- name: Install packages for bastion
+  apt:
+    name: "{{item}}"
+  loop: "{{install.localhost.packages}}"
+
+- name: Install pip packages
+  pip:
+    name: "{{item}}"
+  loop: "{{install.localhost.pip}}"

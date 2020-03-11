@@ -1,0 +1,10 @@
+---
+
+- hosts: tag_Name__arey_kubeInstance
+  become: true
+  vars_files: 
+    - variables.yml
+  tasks:
+  - name: cluster
+    include_role:
+      name: cluster

@@ -1,0 +1,12 @@
+---
+
+- hosts: localhost
+  connection: local
+  become: true
+  vars_files: 
+    - variables.yml
+  tasks:
+  - name: autoprovision
+    include_role:
+      name: autoprovision
+  

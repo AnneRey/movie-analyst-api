@@ -1,0 +1,3 @@
+- name: Updating cache on cluster instances
+  apt: 
+    update_cache: yes

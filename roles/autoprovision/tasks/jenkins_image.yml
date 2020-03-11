@@ -1,0 +1,22 @@
+- name: get jenkins image
+  docker_image:
+    name: "jenkinsci/blueocean"
+    source: pull
+
+- name: Create dir for volume
+  file:
+    path: "/opt/jenkins/data"
+    state: directory
+    mode: 0777
+    owner: root
+
+- name: running jenkins container
+  docker_container:
+    name: jenkins
+    image: "jenkinsci/blueocean"
+    state: started
+    volumes:
+      - "/opt/jenkins/data:/var/jenkins_home/"
+    ports:
+      - "8080:8080"
+      - "50000:50000"

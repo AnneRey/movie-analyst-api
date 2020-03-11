@@ -1,0 +1,2 @@
+- include_tasks: pull_from_registry_back.yml
+- include_tasks: pull_from_registry_front.yml

@@ -1,0 +1,20 @@
+- name: Getting image from local registry for front
+  docker_image:
+    name: localhost:5000/frontimage
+    repository: localhost:5000
+    source: pull
+
+- name: Run container for front image
+  docker_container:
+    name: movie-analyst-api
+    image: localhost:5000/backimage
+    state: started
+    volumes:
+    - "/etc/docker/movie-analyst-api:/var/lib/movie-analyst-api"
+  published-ports:
+    - "3000:3000"
+
+- name: Run seed
+  shell: | 
+    docker exec -it movie-analyst-api shell
+    node seeds.js
