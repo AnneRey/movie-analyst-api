@@ -23,7 +23,7 @@ pipeline {
 
     stage('Test image'){
         steps{
-            sh "docker run --name testBack localhost:5000/backimage"
+            sh "docker run --name testBack -p 3000:1400 localhost:5000/backimage"
             sh "docker exec -it localhost:5000/backimage bash"
             sh "node test/test.js"
         }
