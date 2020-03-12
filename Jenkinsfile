@@ -21,23 +21,23 @@ pipeline {
       }
     }
 
-    stage('Test image'){
-        steps{
-            sh "docker rm -f testBack"
-            sh "docker run -d --name testBack -p 3000:3000 localhost:5000/backimage"
-            sh "docker exec testBack /bin/bash node test/test.js"
-        }
+    stage('Test image') {
+      steps {
+        sh 'docker rm -f testBack'
+        sh 'docker run -d --name testBack -p 3000:3000 localhost:5000/backimage'
+        sh 'docker exec testBack node test/test.js'
+      }
     }
 
     stage('Push to registry') {
       steps {
-        sh "docker rm testBack"
+        sh 'docker rm testBack'
         sh 'docker push localhost:5000/backimage'
         sh 'docker images'
         sh 'docker ps'
         sh 'ls'
         sh 'pwd'
-        sh "curl http://localhost:5000/v2/_catalog"
+        sh 'curl http://localhost:5000/v2/_catalog'
       }
     }
 
@@ -52,7 +52,9 @@ pipeline {
           sh 'curl http://localhost:5000/v2/_catalog'
           sh 'ansible-playbook -i inventory/aws.aws_ec2.yml playbook-deploy.yml --private-key /home/ubuntu/aws'
         }
+
       }
     }
+
   }
 }
