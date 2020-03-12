@@ -2,8 +2,6 @@ process.env.NODE_ENV = 'test';
 
 //Require the dev-dependencies
 let chai = require('chai');
-let mocha = require('mocha');
-let describe = mocha.describe();
 let chaiHttp = require('chai-http');
 let server = require('../server');
 let should = chai.should();
