@@ -14,10 +14,11 @@ pipeline {
 
     stage('Package') {
       steps {
-        sh 'docker build -t localhost:5000/backimage .'
+        sh 'docker build --no-cache -t localhost:5000/backimage .'
         sh 'pwd'
         sh 'docker images'
         sh 'ls'
+        sh "docker ps"
       }
     }
 
