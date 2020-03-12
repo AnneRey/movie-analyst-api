@@ -25,7 +25,7 @@ pipeline {
       steps {
         sh 'docker rm -f testBack'
         sh 'docker run -d --name testBack -p 3000:3000 localhost:5000/backimage'
-        sh 'docker exec testBack npx test'
+        sh 'docker exec testBack npm test'
       }
     }
 
