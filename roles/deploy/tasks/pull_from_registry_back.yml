@@ -1,2 +1,10 @@
-- name: Aplly with kubectl
-  command: "kubectl apply -f kubernetes/"
+- name: Copy deploy script
+  template:
+    src: deploy.sh.j2
+    dest: /home/ubuntu/deploy.sh
+    mode: 0777
+    owner: root
+
+- name: Execute deploy script
+  command: "bash /home/ubuntu/deploy.sh"  
+  remote_user: ubuntu
