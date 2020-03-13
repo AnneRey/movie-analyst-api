@@ -1,0 +1,2 @@
+- name: Aplly with kubectl
+  command: "kubectl apply -f kubernetes/"

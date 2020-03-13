@@ -1,0 +1,13 @@
+plugin: aws_ec2
+regions:
+  - us-west-2
+#specifying host-name precedence
+hostnames:   
+  - ip-address
+#custom group for the instances on autoscaling
+keyed_groups:
+  - key: tags.Name
+    prefix: tag_Name_
+compose:
+# set the ansible_host variable to connect with the private IP address without changing the hostname
+  ansible_host: private_ip_address
