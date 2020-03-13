@@ -1,8 +1,10 @@
 ---
 
-- hosts: tag_Name__arey_slave
-  user: ubuntu
+- hosts: tag_Name__arey_kubeInstance 
+  remote_user: ubuntu
   become: true
+  become_user: root
+  become_method: sudo
   tasks:
     - name: deploy
       include_role:
