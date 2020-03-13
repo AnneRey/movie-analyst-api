@@ -25,11 +25,13 @@ pipeline {
     stage('Test') {
       steps {
         sh 'docker build -f Dockerfiletest --no-cache -t test .'
+        sh "docker images"
       }
     }
 
     stage('Push to registry') {
       steps {
+        sh "docker rmi test"
         sh 'docker rm testBack'
         sh 'docker push localhost:5000/backimage'
         sh 'docker images'
