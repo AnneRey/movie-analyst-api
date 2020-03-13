@@ -18,21 +18,20 @@ pipeline {
         sh 'pwd'
         sh 'docker images'
         sh 'ls'
-        sh "docker ps"
+        sh 'docker ps'
       }
     }
 
     stage('Test') {
       steps {
         sh 'docker build -f Dockerfiletest --no-cache -t test .'
-        sh "docker images"
+        sh 'docker images'
       }
     }
 
     stage('Push to registry') {
       steps {
-        sh "docker rmi test"
-        sh 'docker rm testBack'
+        sh 'docker rmi test'
         sh 'docker push localhost:5000/backimage'
         sh 'docker images'
         sh 'docker ps'
